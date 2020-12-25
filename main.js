@@ -65,12 +65,17 @@
     };
 
     let t = [0,5,10,15,20,25];
+    const interval = 10;
+    const animationFlames = 200;
+    const totalFlames = interval + animationFlames;
     const fps = 50;
     setInterval(() => {
         resetCanvas(canvas, ctx, colors.black);
         for (let i = 0; i < t.length; i++) {
-            ball.draw(ctx, t[i] * Math.PI / 100);
-            t[i] = t[i] >= 200 ? 0 : t[i] + 1;
+            if (t[i] < animationFlames) {
+                ball.draw(ctx, t[i] * Math.PI / 100);
+            }
+            t[i] = t[i] >= totalFlames ? 0 : t[i] + 1;
         }
     }, 1000 / fps);
 

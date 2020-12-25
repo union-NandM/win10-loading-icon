@@ -59,8 +59,7 @@
                 this.x(t),
                 this.y(t),
                 this.ballRadius(t),
-                this.color,
-                true
+                this.color
                 );
         },
     };

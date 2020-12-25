@@ -31,7 +31,7 @@
         },
         
         angle(t) {
-            return 2*(2*t*(75 + 3 * Math.PI * t - t*t) - 75*Math.sin(2 * t)) / (2 * (75 + 2*Math.PI * Math.PI));
+            return 2*(2*t*(75 + 3 * Math.PI * t - t*t) - 75*Math.sin(2 * t)) / (2 * (74 + 2*Math.PI * Math.PI));
         },
 
         x(t) {
@@ -65,7 +65,7 @@
         },
     };
 
-    let t = [0,5,10,15,20];
+    let t = [0,5,10,15,20,25];
     const fps = 50;
     setInterval(() => {
         resetCanvas(canvas, ctx, colors.black);

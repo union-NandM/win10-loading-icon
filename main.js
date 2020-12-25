@@ -11,20 +11,54 @@
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     } 
-    
 
+    function startAnimation(quantity, fps) {
+        let t = [];
+        for (let i = 0; i < quantity; i++) {
+              t.push(i * 5);
+        }
+        const intervalFrames = quantity < 4 ? 0 : t[quantity - 4];
+        const animationFrames = 200;
+        const totalFrames = intervalFrames + animationFrames;
+        return (
+            setInterval(() => {
+                resetCanvas(canvas, ctx, colors.black);
+                for (let i = 0; i < t.length; i++) {
+                    if (t[i] > intervalFrames) {
+                        ball.draw(ctx, (t[i] - intervalFrames) * Math.PI / 100);
+                    }
+                    t[i] = t[i] >= totalFrames ? 0 : t[i] + 1;
+                }
+            }, 1000 / fps)
+        );    
+    }
+
+    function validate(node, errorMessage) {
+        const quantity = Number(node.value);
+        if (Number.isInteger(quantity) && quantity >= 0) {
+            node.classList.remove('error');
+            errorMessage.textContent = '';
+            return true;
+        } else {
+            node.classList.add('error');
+            errorMessage.textContent = '非負整数値を入力してください';
+            return false;
+        }
+
+    }
+    
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-
     const colors = {
         black: '#000000',
         white: '#ffffff',
     };
 
     const ball = {
-        ball_radius_max: 4,
+        quantity: 6,
         color: colors.white,
         orbit_radius: 100,
+        ball_radius_max: 4,
         orbit_center: {
             x: 250,
             y: 250,
@@ -64,21 +98,25 @@
         },
     };
 
-    let t = [0,5,10,15,20,25];
-    const interval = 10;
-    const animationFlames = 200;
-    const totalFlames = interval + animationFlames;
+    let intervalid;
     const fps = 50;
-    setInterval(() => {
-        resetCanvas(canvas, ctx, colors.black);
-        for (let i = 0; i < t.length; i++) {
-            if (t[i] < animationFlames) {
-                ball.draw(ctx, t[i] * Math.PI / 100);
-            }
-            t[i] = t[i] >= totalFlames ? 0 : t[i] + 1;
+    
+    intervalid = startAnimation(ball.quantity, fps);
+    
+    const $inputQuantity = document.getElementById('quantity');
+    const $errorMessage = document.getElementById('error-message');
+
+    document.getElementById("btn").addEventListener('click', () => {
+        const quantity = Number($inputQuantity.value);
+        if (validate($inputQuantity, $errorMessage)) {
+            clearInterval(intervalid);
+            ball.quantity = quantity;
+            intervalid = startAnimation(ball.quantity, fps);
         }
-    }, 1000 / fps);
+    });
+
+    $inputQuantity.addEventListener('change', () => {
+        validate($inputQuantity, $errorMessage);
+    })
 
 })();
-
-

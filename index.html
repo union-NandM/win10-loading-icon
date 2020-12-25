@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>loading icon</title>
+    <title>Loading Icon</title>
     <style>
         * {
             margin: 0;
         }
+
+        .error {
+            box-shadow: 0 0 2px 1px rgba(255,0,0,0.6);
+            border: 1px solid #ff0000;
+        }
+
+        #error-message {
+            font-size: 12px;
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <div>
+        <canvas id="canvas" width="500px" height="500px"></canvas>
+    </div>
+    <div>
+        <p>粒の数</p>
+        <input type="number" name="quantity" id="quantity" value="6">
+        <input type="button" name="quantity" value="click" id="btn">
+        <p id="error-message"></p>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

@@ -31,7 +31,7 @@
         },
         
         angle(t) {
-            return 2*(2*t*(75 + 3 * Math.PI * t - t*t) - 75*Math.sin(2 * t)) / (2 * (74 + 2*Math.PI * Math.PI));
+            return 2*(2*t*(75 + 3 * Math.PI * t - t*t) - 75*Math.sin(2 * t)) / (2 * (75 + 2*Math.PI * Math.PI));
         },
 
         x(t) {
